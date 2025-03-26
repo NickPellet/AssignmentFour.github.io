@@ -1,0 +1,23 @@
+name: Static Analysis
+
+on:
+  pull_request:
+    branches:
+      - main  # Or your default branch
+
+jobs:
+  static_analysis:
+    runs-on: ubuntu-latest  # Use Ubuntu to run the job
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # This step checks out your code from GitHub
+
+      - name: Install Cppcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install cppcheck  # Install Cppcheck
+
+      - name: Run Cppcheck
+        run: |
+          cppcheck --enable=all --inconclusive --quiet .  # Run static analysis on all files
